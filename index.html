@@ -187,6 +187,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -229,7 +239,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/16/first/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/08/first/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Matoi">
@@ -248,7 +258,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/09/16/first/" itemprop="url">first</a></h1>
+                <a class="post-title-link" href="/2021/10/08/first/" itemprop="url">微信公众号支付</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-16T19:25:58+08:00">
-                2021-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-08T16:46:09+08:00">
+                2021-10-08
               </time>
             
 
@@ -270,6 +280,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wechat/" itemprop="url" rel="index">
+                    <span itemprop="name">wechat</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -300,9 +332,42 @@
       
         
           
-            <p>随便写写</p>
-<pre><code>for(let i;i&lt;1;i--)&#123;
-&#125;
+            <p>微信公众号支付相关代码</p>
+<pre><code>     function onBridgeReady() &#123;
+    WeixinJSBridge.invoke(
+      &#39;getBrandWCPayRequest&#39;, &#123;
+      &quot;appId&quot;: dataCost.appId,//公众号名称，由商户传入     
+      &quot;timeStamp&quot;: dataCost.timeStamp,//时间戳    
+      &quot;nonceStr&quot;: dataCost.nonceStr, //随机串     
+      &quot;package&quot;: dataCost.package,
+      &quot;signType&quot;: dataCost.signType,//微信签名方式
+      &quot;paySign&quot;: dataCost.paySign //微信签名 
+    &#125;,
+      function (res) &#123;
+        if (res.err_msg == &quot;get_brand_wcpay_request:ok&quot;) &#123;
+          callback(&quot;ok&quot;)
+          //微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+        &#125; else if (res.err_msg == &quot;get_brand_wcpay_request:cancel&quot;) &#123;
+          //取消 
+          callback(&quot;cancel&quot;);
+        &#125; else &#123;
+          //失败 
+          callback(&quot;fail&quot;, res.err_desc);
+        &#125;
+      &#125;,
+      (err) =&gt; &#123;
+      &#125;);
+  &#125;
+  if (typeof WeixinJSBridge == &quot;undefined&quot;) &#123;
+    if (document.addEventListener) &#123;
+      document.addEventListener(&#39;WeixinJSBridgeReady&#39;, onBridgeReady, false);
+    &#125; else if (document.attachEvent) &#123;
+      document.attachEvent(&#39;WeixinJSBridgeReady&#39;, onBridgeReady);
+      document.attachEvent(&#39;onWeixinJSBridgeReady&#39;, onBridgeReady);
+    &#125;
+  &#125; else &#123;
+    onBridgeReady();
+  &#125;
 </code></pre>
 
           
@@ -527,6 +592,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             
